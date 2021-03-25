@@ -1,6 +1,6 @@
 package Model;
 
-import java.lang.reflect.Array;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Vector;
 
@@ -18,16 +18,20 @@ public class SceneContent {
         seeds = new ArrayList<>();
     }
 
-    public void iterate() {
+    public void iterate(float elapsed) {
+        for (Pigeon pigeon : pigeons) {
+            pigeon.iterate(elapsed, seeds);
+        }
 
+        seeds.removeIf(Seed::isBeingEaten);
     }
 
-    public void addPigeon(Vector<Integer> position) {
-
+    public void addPigeon(Point position) {
+        pigeons.add(new Pigeon(position));
     }
 
-    public void addSeed(Vector<Integer> position) {
-
+    public void addSeed(Point position) {
+        seeds.add(new Seed(position));
     }
 
     public ArrayList<Pigeon> getPigeons() {
